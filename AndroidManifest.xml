@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sxs.chengyupoemgame.main"
+    android:versionCode="1"
+    android:versionName="1.0" >
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+	 <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+	 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+	 <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+	 <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"></uses-permission>
+	 <uses-permission android:name="android.permission.GET_TASKS"/>
+		
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.sxs.chengyupoemgame.common.Splash"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.MainActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMGoodPoemTitleActivity"></activity>
+        
+        
+        <activity android:name="com.sxs.chengyupoemgame.main.PMGoodPoemDetailActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMBooksMainActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMBooksDetailActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMPoemSearchActivity"
+            	  android:windowSoftInputMode="stateAlwaysHidden|adjustResize"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMQuestionMainActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMAnswerDetailActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMScoreListActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.PMAboutDetailActivity"></activity>
+        <meta-data android:value="53ae774c56240bbd5209289c" android:name="UMENG_APPKEY"></meta-data>
+		<meta-data android:value="internal" android:name="UMENG_CHANNEL"/>
+		<service
+	    android:name="com.umeng.common.net.DownloadingService"
+	    android:process=":DownloadingService" >
+		</service>
+		<activity 
+		    android:name="com.umeng.update.UpdateDialogActivity"
+		    android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+		</activity>
+		<activity android:name="net.doujin.android.DJActivity" android:theme="@android:style/Theme.NoTitleBar" android:configChanges="keyboard|keyboardHidden|orientation"></activity>
+		 <receiver android:name="net.doujin.android.DJReceiver">
+		     <intent-filter>
+		          <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+		          <action android:name="android.intent.action.USER_PRESENT"/>
+		     </intent-filter>
+		 </receiver>
+		 <service android:name="net.doujin.android.DJService" android:exported="false"></service>
+		 <service android:name="net.doujin.android.djp.DJPushService" android:exported="false"></service>
+				
+    </application>
+
+</manifest>
