@@ -3,6 +3,7 @@ package com.sxs.chengyupoemgame.main;
 import net.doujin.android.DJManager;
 import net.doujin.android.djp.DJPushManager;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -44,12 +45,15 @@ public class MainActivity extends Activity {
             	}
             }
         }, 1000);
-		DJManager.getInstance(MainActivity.this).init("73922e402a9e04d37aaa50f5c1823a76", false);
-		DJPushManager.startDoujinPush(this);
+//		DJManager.getInstance(MainActivity.this).init("9a64736158fd3a15b6875823475711df", false);
+//		DJPushManager.startDoujinPush(this);
 	}
 	@OnClick(R.id.main_start_btn)
 	public void onStartClick(View v){
-		
+		Intent intent = new Intent();
+		intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+		intent.setClass(MainActivity.this, DiffViewFlowActivity.class);
+		startActivity(intent);
 	}
 	@OnClick(R.id.mian_music_img)
 	public void onMusicClick(View v){
