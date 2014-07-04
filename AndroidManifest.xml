@@ -30,8 +30,9 @@
             </intent-filter>
         </activity>
         <activity android:name="com.sxs.chengyupoemgame.main.MainActivity"></activity>
-        <activity android:name="com.sxs.chengyupoemgame.main.ChengyuGuanKaActivity"></activity>
         <activity android:name="com.sxs.chengyupoemgame.main.DiffViewFlowActivity"></activity>
+        <activity android:name="com.sxs.chengyupoemgame.main.GameAnswerActivity"></activity>
+        
     <!--     <activity android:name="com.sxs.chengyupoemgame.main.DiffViewFlowActivity"></activity>
         <activity android:name="com.sxs.chengyupoemgame.main.PMBooksDetailActivity"></activity>
         <activity android:name="com.sxs.chengyupoemgame.main.PMPoemSearchActivity"

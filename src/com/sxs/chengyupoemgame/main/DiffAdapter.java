@@ -2,23 +2,51 @@ package com.sxs.chengyupoemgame.main;
 
 import org.taptwo.android.widget.TitleProvider;
 
+import com.sxs.chengyupoemgame.data.MapStringUtil;
+import com.sxs.chengyupoemgame.data.UserDataModel;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class DiffAdapter extends BaseAdapter implements TitleProvider {
 
-        private static final int VIEW_MAX_COUNT = 20;
-    	private final String[] names = {"第1波","第2波","第3波","第4波","第5波","第6波","第7波","第8波","第9波","第10波","第11波","第12波","第13波","第14波","第15波","第16波","第17波","第18波","第19波","第20波"};
+    private int VIEW_MAX_COUNT = 20;
+	private String[] names;
+    private String[][] list;	
+    /**
+	 * @return the list
+	 */
+	public String[][] getList() {
+		return list;
+	}
 
-    private LayoutInflater mInflater;
+	/**
+	 * @param list the list to set
+	 */
+	public void setList(String[][] list) {
+		this.list = list;
+		names = new String[list.length];
+		VIEW_MAX_COUNT = list.length;
+		for(int i =0;i < list.length;i++){
+			names[i] = "第"+(i+1)+"波";
+		}
+		
+	}
+
+	private LayoutInflater mInflater;
     private Context mContext;
 	private DisplayMetrics dm;//屏幕分辨率容器
     public DiffAdapter(Context context) {
@@ -38,7 +66,7 @@ public class DiffAdapter extends BaseAdapter implements TitleProvider {
 
     @Override
     public int getCount() {
-        return 20;
+        return names.length;
     }
 
     @Override
@@ -55,6 +83,7 @@ public class DiffAdapter extends BaseAdapter implements TitleProvider {
     public View getView(int position, View convertView, ViewGroup parent) {
         int view = getItemViewType(position);
         if (convertView == null) {
+           
            convertView = mInflater.inflate(R.layout.activity_list_view, null);
            Typeface tf = Typeface.createFromAsset(mContext.getAssets(),  
 	              "fonts/mygame.ttf");  
@@ -67,12 +96,13 @@ public class DiffAdapter extends BaseAdapter implements TitleProvider {
     		int j = -1;
     		Log.i("Postion:", position + " -- " +pCount);
     		for(int i = 0;i < 32;i++){
-    			Button btn = (Button) mInflater.inflate(R.layout.activity_lock_on, null);
-    			btn.setId(i+1 + pCount);
-//    			btn.setOnClickListener(); 
+    			Boolean isLocked = isLock(position,i);
+    			Button btn = (Button) mInflater.inflate(isLocked?R.layout.activity_lock_off:R.layout.activity_lock_on, null);
+    			btn.setId(i + pCount);
+    			btn.setOnClickListener(btnClickListener); 
     			btn.setTypeface(tf);
-    			btn.setTag((pCount+i+1)+"");
-    			btn.setText((i+1)+"");
+    			btn.setTag(position+"-" +i);
+    			btn.setText(isLocked ? "" : ((i+1)+""));
     			RelativeLayout.LayoutParams layout = new RelativeLayout.LayoutParams(itemWd, itemWd);
     			 if (i%4 == 0) {
     				 j++;
@@ -86,7 +116,36 @@ public class DiffAdapter extends BaseAdapter implements TitleProvider {
         }
         return convertView;
     }
-
+    private Boolean isLock(int x , int y){
+    	Boolean reslut = false;
+    	if(x > UserDataModel.instance().maxPointX){
+    		reslut = true;
+    	}else if(x == UserDataModel.instance().maxPointX && y > UserDataModel.instance().maxPointY){
+    		reslut = true;
+    	}
+    	return reslut;
+    }
+    
+    private OnClickListener btnClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			if(MapStringUtil.compareTwoLevel(v.getTag().toString(), UserDataModel.instance().getMaxLevel())){
+				Toast.makeText(mContext, "当前关卡未开启", Toast.LENGTH_SHORT).show();
+			}else
+			{
+				UserDataModel.instance().setLevel(v.getTag().toString());
+				Intent intent = new Intent();
+			    intent.setClass(mContext, GameAnswerActivity.class);
+			    Bundle bundle = new Bundle();
+			    bundle.putString("uid", "100");
+			    intent.putExtras(bundle);
+			    ((Activity) mContext).startActivityForResult(intent,0);
+			}
+			
+		}
+	};
 
 
     /* (non-Javadoc)

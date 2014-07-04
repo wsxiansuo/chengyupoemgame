@@ -1,11 +1,15 @@
 package com.sxs.chengyupoemgame.main;
 
+import java.util.List;
+import java.util.Map;
+
 import net.doujin.android.DJManager;
 import net.doujin.android.djp.DJPushManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.UserManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -16,6 +20,7 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.sxs.chengyupoemgame.data.DBManager;
+import com.sxs.chengyupoemgame.data.UserDataModel;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -43,11 +48,17 @@ public class MainActivity extends Activity {
             		mgr.upDatabase();  
             		Log.i("update", "数据库执行了更新---------------");
             	}
+            	mgr.queryGuankaArray();
             }
         }, 1000);
+		UserDataModel.instance().setContext(MainActivity.this);
+		UserDataModel.instance().loadMaxLevel();
 //		DJManager.getInstance(MainActivity.this).init("9a64736158fd3a15b6875823475711df", false);
 //		DJPushManager.startDoujinPush(this);
 	}
+	
+	
+	
 	@OnClick(R.id.main_start_btn)
 	public void onStartClick(View v){
 		Intent intent = new Intent();

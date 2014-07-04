@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ceb68d"
+    android:orientation="vertical" >
+    <RelativeLayout android:id="@+id/rl_back_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#6a4212">
+        <Button android:id="@+id/back_btn" 
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@drawable/back_btn"
+            android:layout_alignParentBottom="true"/>
+        <TextView android:id="@+id/tv_game_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="关卡"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"/>
+        <TextView android:id="@+id/tv_game_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/score_bg"
+            android:paddingLeft="35dp"
+            android:gravity="center_vertical"
+            android:text="100"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/color_white"/>
+    </RelativeLayout>
+   	<RelativeLayout android:id="@+id/rl_answer_layout"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:layout_margin="20dp"
+   	    android:layout_below="@id/rl_back_view"
+   	    android:background="@drawable/answer_bg"
+   	    >
+   	    <LinearLayout android:id="@+id/ll_answer_view"
+   	         android:layout_width="wrap_content"
+   	    	android:layout_height="wrap_content"
+   	    	android:layout_centerInParent="true"
+   	    	android:orientation="horizontal"
+   	        ></LinearLayout>
+   	</RelativeLayout>    
+	<ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbarStyle="insideOverlay"
+        android:layout_below="@id/rl_answer_layout"
+        android:background="@drawable/chengyu_bg"
+        >
+         <RelativeLayout android:id="@+id/rl_question_view"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+             
+         </RelativeLayout>
+    </ScrollView>  
+	    
+  
+</RelativeLayout>
